@@ -12,7 +12,7 @@ This project presents a sophisticated yet user-friendly solution for firmware ma
 - **main.c**: The main application code, structured to integrate seamlessly with the bootloader. It includes the essential system initialization routines and provides a starting point for your application code.
 
 ### Python Firmware Programming Utility
-- **STM32_Programmer.py**: A powerful yet easy-to-use Python script designed to communicate with the STM32 bootloader via a serial interface. It supports a wide range of commands, including erasing flash memory, writing new firmware, and verifying the integrity of the firmware, all through a simple command-line interface.
+- **STM32F446_Programmer.py**: A powerful yet easy-to-use Python script designed to communicate with the STM32 bootloader via a serial interface. It supports a wide range of commands, including erasing flash memory, writing new firmware, and verifying the integrity of the firmware, all through a simple command-line interface.
 
 ## Key Features and Benefits
 
@@ -22,6 +22,8 @@ This project presents a sophisticated yet user-friendly solution for firmware ma
 - **Robust Firmware Management**: Equipped with functions to safely erase, write, and verify firmware, the bootloader provides a secure environment for firmware updates regardless of the memory type being used.
 - **Security Features**: The bootloader includes commands to enable and disable read/write protection on specific memory sectors. This is crucial for safeguarding sensitive data and preventing unauthorized modifications.
 - **Memory Inspection and Control**: With commands that allow direct reading of memory contents and checking the protection status of memory sectors, the bootloader offers powerful tools for developers to inspect and control the microcontroller's memory.
+- **UART Communication**: Firmware updates are performed using UART2, while UART3 is utilized for debugging, providing a clear separation of concerns for reliable firmware management.
+
 
 ### Programming Utility Features:
 - **Cross-Platform Functionality**: Written in Python, the programming utility is compatible with multiple operating systems, including Windows, macOS, and Linux, providing flexibility in deployment.
@@ -54,7 +56,7 @@ Once the firmware update is complete and verified, the bootloader jumps to the a
 
 ### Integrating the Bootloader:
 1. Build the bootloader and application using Visual Studio Code development environment.
-2. Flash the compiled bootloader to the STM32 microcontroller.
+2. Flash the compiled bootloader to sectors 0 and 1 of the STM32 microcontroller's internal flash memory.
 3. Utilize the Python utility to flash the main application firmware to the desired memory location—internal flash, SRAM, or external memory—and perform updates as needed.
 
 ## Conclusion
