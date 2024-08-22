@@ -101,8 +101,8 @@ extern UART_HandleTypeDef
 #define BL_NACK_REPLY_LEN 1 /**< Length of negative acknowledgment reply */
 
 /* Address validation codes */
-#define ADDR_VALID 0   /**< Address validation successful */
-#define ADDR_INVALID 1 /**< Address validation failed */
+#define ADDR_VALID 0x0   /**< Address validation successful */
+#define ADDR_INVALID 0x4 /**< Address validation failed */
 #define ADDR_VALID_INVALID_REPLY_LEN                                           \
   1 /**< Length of address validation reply */
 

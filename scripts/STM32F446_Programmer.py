@@ -6,11 +6,11 @@ import glob
 import time
 
 # Constants for some statuses
-FLASH_OK = 0x00
-FLASH_ERROR = 0x01
-FLASH_BUSY = 0x02
-FLASH_TIMEOUT = 0x03
-FLASH_INV_ADDR = 0x04
+MEM_WRITE_OK = 0x00
+MEM_WRITE_ERROR = 0x01
+MEM_WRITE_BUSY = 0x02
+MEM_WRITE_TIMEOUT = 0x03
+MEM_WRITE_INV_ADDR = 0x04
 COMMAND_PROCESS_SUCCESS = 0 
 COMMAND_PROCESS_FAIL = -1 
 
@@ -102,7 +102,7 @@ def is_port_available(port):
 def configure_serial_port(port):
     global ser
     try:
-        ser = serial.Serial(port, 115200, timeout=2)
+        ser = serial.Serial(port, 115200, timeout=5)
         if ser.is_open:
             print("\n   Port Open Success")
             return 0
@@ -209,14 +209,14 @@ def process_flash_erase(length):
     status = bytearray(read_serial_port(length))
     if len(status):
         status_code = {
-            FLASH_OK: "Success  Code: FLASH_OK",
-            FLASH_ERROR: "Fail  Code: FLASH_ERROR",
-            FLASH_BUSY: "Fail  Code: FLASH_BUSY",
-            FLASH_TIMEOUT: "Fail  Code: FLASH_TIMEOUT",
-            FLASH_INV_ADDR: "Fail  Code: FLASH_INV_SECTOR"
+            MEM_WRITE_OK: "Success  Code: FLASH_OK",
+            MEM_WRITE_ERROR: "Fail  Code: FLASH_ERROR",
+            MEM_WRITE_BUSY: "Fail  Code: FLASH_BUSY",
+            MEM_WRITE_TIMEOUT: "Fail  Code: FLASH_TIMEOUT",
+            MEM_WRITE_INV_ADDR: "Fail  Code: FLASH_INV_SECTOR"
         }
         print("\n   Erase Status:", status_code.get(status[0], "Fail  Code: UNKNOWN_ERROR_CODE"))
-        if status[0] == FLASH_OK:
+        if status[0] == MEM_WRITE_OK:
             return COMMAND_PROCESS_SUCCESS
         else:
             return COMMAND_PROCESS_FAIL
@@ -228,14 +228,14 @@ def process_flash_erase(length):
 def process_firmware_update(length):
     status = bytearray(read_serial_port(length))
     status_code = {
-        FLASH_OK: "FLASH_OK",
-        FLASH_ERROR: "FLASH_ERROR",
-        FLASH_BUSY: "FLASH_BUSY",
-        FLASH_TIMEOUT: "FLASH_TIMEOUT",
-        FLASH_INV_ADDR: "FLASH_INV_ADDR"
+            MEM_WRITE_OK: "Success  Code: MEM_WRITE_OK",
+            MEM_WRITE_ERROR: "Fail  Code: MEM_WRITE_ERROR",
+            MEM_WRITE_BUSY: "Fail  Code: MEM_WRITE_BUSY",
+            MEM_WRITE_TIMEOUT: "Fail  Code: MEM_WRITE_TIMEOUT",
+            MEM_WRITE_INV_ADDR: "Fail  Code: MEM_WRITE_INV_ADDR"
     }
     print("\n   Write Status:", status_code.get(status[0], "UNKNOWN_ERROR"))
-    if status[0] == FLASH_OK:
+    if status[0] == MEM_WRITE_OK:
         return COMMAND_PROCESS_SUCCESS
     else:
         return COMMAND_PROCESS_FAIL
@@ -408,11 +408,12 @@ def create_command_buffer(command_name):
             bytes_so_far_sent += len_to_read
             bytes_remaining = t_len_of_file - bytes_so_far_sent
             print(f"\n   bytes_so_far_sent: {bytes_so_far_sent} -- bytes_remaining: {bytes_remaining}\n")
-            time.sleep(1)
+            time.sleep(0.01)
 
         firmware_update_active = 0
         bin_file.close()
 
+        time.sleep(1)
         print("\n   Firmwae Update Finished")
         command_len = COMMAND_LENGTHS["BL_FIRMWARE_UPDATE_FINISH"]
         data_buf[0] = command_len - 1 

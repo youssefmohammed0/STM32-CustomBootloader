@@ -487,7 +487,7 @@ void bootloader_firmware_update_reply(const uint8_t *const rec_cmd) {
     memcpy((void *)start_mem_addr, payload, data_len);
 
   } else {
-    firmware_update_status = HAL_ERROR;
+    firmware_update_status = ADDR_INVALID;
     uint8_t debug_msg[] = " Error: Firmware update failed. \r\n";
     bootloader_send_debug_msg(debug_msg, sizeof(debug_msg));
   }
