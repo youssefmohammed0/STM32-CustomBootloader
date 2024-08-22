@@ -47,16 +47,25 @@ Once the firmware update is complete and verified, the bootloader jumps to the a
    pip install pyserial
    ```
 
-2. Use the utility to program your STM32 device:
+2. Use the utility in scripts folder to program your STM32 device:
    ```bash
-   python STM32_Programmer.py --port COM3 --baudrate 115200 --file firmware.bin
+   python STM32F446_Programmer
    ```
 
 ### Integrating the Bootloader:
-1. Compile the bootloader and application using your preferred STM32 development environment.
+1. Build the bootloader and application using Visual Studio Code development environment.
 2. Flash the compiled bootloader to the STM32 microcontroller.
 3. Utilize the Python utility to flash the main application firmware to the desired memory location—internal flash, SRAM, or external memory—and perform updates as needed.
 
 ## Conclusion
-This project delivers a full-fledged solution for managing firmware on STM32 microcontrollers. By integrating a robust bootloader with a versatile Python programming utility, it provides a reliable and user-friendly framework for ensuring that your STM32 devices are always running the latest and most stable firmware. With its comprehensive set of features, including support for multiple memory types, detailed memory management, and security functions, this toolset is designed to meet the needs of developers in various scenarios, from product development to custom projects.
+This project provides a reliable and user-friendly framework for managing firmware on STM32 microcontrollers. By integrating a straightforward bootloader with a versatile Python programming utility, it ensures that your STM32 devices can be efficiently updated and maintained.
+
+## Screenshots
+
+### Bootloader Command Menu:
+![Bootloader Command Menu](Bootloader_Command_Menu.PNG)
+
+### Firmware Update Process:
+![Firmware Update Process](Firmware_Update_Process.PNG)
+
 
