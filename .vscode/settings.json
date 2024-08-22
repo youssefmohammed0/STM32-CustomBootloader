@@ -1,0 +1,10 @@
+{
+    "C_Cpp.clang_format_path": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
+    "C_Cpp.formatting": "clangFormat",
+    "editor.formatOnSave": true,
+    "cortex-debug.variableUseNaturalFormat": false,
+    "files.associations": {
+        "bootloader.h": "c",
+        "stm32f4xx_hal.h": "c"
+    },
+}
